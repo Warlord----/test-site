@@ -1,0 +1,110 @@
+.Row ( @width : @default-width ) {
+  max-width: @width;
+  width: 100%;
+  margin: 0 auto;
+  // clear at the end of container
+  &:before,
+  &:after {
+    content: "";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+.Cols ( @width ) {
+  width: @width;
+  float: left;
+}
+
+.center ( @width ) {
+  width: @width;
+  float: none;
+  margin: 0 auto;
+}
+
+.socialButton(@classname) {
+  background: url("../images/social_b_@{classname}.jpg") no-repeat;
+}
+
+.transform (@transform, @origin: 50% 50%) {
+  -webkit-transform: @transform;
+  -moz-transform: @transform;
+  -ms-transform: @transform;
+  -o-transform: @transform;
+  transform: @transform;
+
+  -webkit-transform-origin: @origin;
+  -moz-transform-origin: @origin;
+  -ms-transform-origin: @origin;
+  -o-transform-origin: @origin;
+  transform-origin: @origin;
+}
+
+.gray() {
+  filter: url("data:image/svg+xml;utf8,<svg%20xmlns='http://www.w3.org/2000/svg'><filter%20id='grayscale'><feColorMatrix%20type='matrix'%20values='0.3333%200.3333%200.3333%200%200%200.3333%200.3333%200.3333%200%200%200.3333%200.3333%200.3333%200%200%200%200%200%201%200'/></filter></svg>#grayscale"); /* Firefox 3.5+ */
+  filter: grayscale(100%) sepia(100%) hue-rotate(150deg); /* Current draft standard */
+  -webkit-filter: grayscale(100%) sepia(100%) hue-rotate(150deg); /* New WebKit */
+  -moz-filter: grayscale(100%) sepia(100%) hue-rotate(150deg);
+  -ms-filter: grayscale(100%) sepia(100%) hue-rotate(150deg);
+  -o-filter: grayscale(100%) sepia(100%) hue-rotate(150deg);
+  filter: gray sepia(100%) hue-rotate(150deg); /* IE6+ */
+}
+
+.drop-shadow(@x-axis: 0, @y-axis: 1px, @blur: 2px, @alpha: 0.1) {
+  -webkit-box-shadow: @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
+  -moz-box-shadow: @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
+  box-shadow: @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
+  filter:
+    progid:DXImageTransform.Microsoft.Shadow(color=#010101,direction=180,strength=4),
+progid:DXImageTransform.Microsoft.Shadow(color=#010101,direction=225,strength=4),
+progid:DXImageTransform.Microsoft.Shadow(color=#010101,direction=270,strength=5);
+}
+
+.clearFilter() {
+  filter: none;
+  -webkit-filter: none;
+  -moz-filter: none;
+  -ms-filter: none;
+  -o-filter: none;
+}
+
+.drawTriangle() {
+  &:before {
+    z-index: -1;
+    content: " ";
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    background: @color1;
+    border-bottom: lighten(@color1, 20%) 4px solid;
+    border-right: lighten(@color1, 20%) 4px solid;
+    left: 50% - 6px;
+    bottom: 0;
+    .transform(scale(1.5, 1) rotate(45deg));
+
+    @media (max-width: @tablet-width) {
+      border: none;
+    }
+  }
+}
+
+.drawTriangleA() {
+  &:before {
+    z-index: -1;
+    content: " ";
+    width: 7px;
+    height: 7px;
+    position: absolute;
+    background: fade(lighten(@color1, 20), 30);
+    left: 17px;
+    bottom: -4px;
+    .transform(scale(1.5, 1) rotate(45deg));
+
+    @media (max-width: @tablet-width) {
+      left: 11px;
+    }
+
+  }
+}

@@ -1,0 +1,604 @@
+@import "reset";
+@import "mixins";
+
+@default-width: 983px;
+@tablet-width: 768px;
+@mobile-width: 320px;
+@default-colspan: 1;
+@default-total_cols: 4;
+@color1: #6b9ad0;
+@color1Dk: #6794b7;
+@color2: white;
+@color2Dk: #e2e5e8;
+@textColor: #69747c;
+@font-main: "Arial";
+@font1: "ArialNarrow";
+@font2: "TrendSonsOne";
+@col1-width: 640px;
+@col1-width-m: 289px;
+@gutter-width: 29px;
+@nav-height: 54px;
+@nav-height-m: 34px;
+
+.text {
+  font-size: 12px;
+  color: @textColor;
+  padding: 15px 0;
+}
+
+.hidden {
+  &.tablet {
+    @media (max-width: @default-width) {
+      display: none;
+    }
+  }
+
+  &.mobile {
+    @media (max-width: @tablet-width) {
+      display: none;
+    }
+  }
+}
+
+header, main, footer {
+  .Row;
+}
+
+header {
+  a#logo {
+    display: block;
+    width: 369px;
+    margin: 10px auto 115px;
+
+    img {
+      height:auto;
+      width:100%;
+    }
+
+    @media (max-width: @tablet-width) {
+      width: 231px;
+      height: 34px;
+      margin-bottom: 40px;
+    }
+  }
+}
+
+nav {
+  display: block;
+  position: absolute;
+  top: 85px;
+  z-index: 10;
+  width: 100%;
+  height: @nav-height;
+  background: @color1;
+  border-bottom: lighten(@color1, 20%) 4px solid;
+  text-align: center;
+  font-family: @font1;
+  font-size: 18px;
+  text-shadow: 1px 1px 1px lighten(@color1, 20%);
+
+  &.scrolled {
+    .drop-shadow(0, 5px, 16px, .3);
+    position: fixed;
+
+    ul {
+      background: transparent url('../images/logo_transp.png') no-repeat 15px 7px;
+    }
+
+    h4 {
+      visibility: hidden;
+    }
+  }
+
+  ul {
+    margin: 0 auto;
+    width: @default-width;
+
+    li {
+      display: inline-block;
+      padding: 3px;
+      position: relative;
+      text-align: center;
+
+      &.active {
+        height: 57px;
+
+        .drawTriangle();
+      }
+
+      a {
+        display: block;
+        position: relative;
+        padding: 14px 27px;
+        color: @color2;
+
+        &:hover {
+          text-decoration: none;
+          background: lighten(@color1, 5%);
+        }
+      }
+    }
+
+    li#about-btn, li#shit-btn, li#links-btn, li#main-menu-btn{
+      display: none;
+      position: absolute;
+      font-size: 20px;
+      text-shadow: none;
+      width: 42px;
+
+      &.active {
+        a, a:hover {
+          .drawTriangleA()
+        }
+      }
+
+      a, a:hover {
+        color: darken(@color1, 10);
+        padding: 13px 15px;
+        background: mix(lighten(@color1, 20), @color1, 30);
+
+      }
+
+      &:before {
+        left: 14px;
+        margin-left: 4px;
+      }
+
+      &#about-btn {
+        left: 0;
+      }
+
+      &#shit-btn {
+        right: 0;
+      }
+    }
+  }
+
+  h4 {
+    position: absolute;
+    left: 140px;
+    top: 0;
+    display: none;
+  }
+
+  @media (max-width: @default-width) {
+    ul {
+      width: @tablet-width;
+
+      li#about-btn, li#shit-btn {
+        display: block;
+      }
+    }
+
+    &.scrolled {
+      ul {
+        background: transparent;
+      }
+    }
+  }
+
+  @media (max-width: @tablet-width) {
+    top: 50px;
+    height: @nav-height-m;
+    border: none;
+    font-size: 14px;
+    text-shadow: none;
+
+    &.scrolled {
+      ul {
+        background: transparent url('../images/logo_sm.png') no-repeat 125px 7px;
+        height: 100%;
+        width: 100%;
+      }
+    }
+
+    ul {
+      width: @mobile-width;
+
+      li#about-btn, li#shit-btn, li#links-btn, li#main-menu-btn{
+        display: block;
+        width: 30px;
+        height: 32px;
+
+        a, a:hover {
+          padding: 3px 5px;
+        }
+
+        &:before {
+          left: 10px;
+        }
+
+        &#shit-btn {
+          left: 33px;
+        }
+
+        &#links-btn {
+          left: 66px;
+
+          a, a:hover {
+            padding: 6px 5px 0;
+          }
+
+          path {
+            fill: darken(@color1, 10);
+          }
+
+        }
+
+        &#main-menu-btn {
+          right: 5px;
+
+          a, a:hover {
+            padding: 5px 5px 0;
+            background: none;
+
+            &:before {
+              display: none;
+            }
+          }
+
+          rect {
+            fill: lighten(@color1, 20);
+          }
+
+        }
+      }
+
+      &#main-menu {
+        margin: 34px auto 0px;
+        background: fade(lighten(@color1, 20), 50);
+        width: 100%;
+        position: relative;
+        z-index: -20;
+
+        li {
+          width: 90%;
+          padding: 0;
+          border-bottom: @color2 1px solid;
+
+          a, a:hover {
+            font-size: 18px;
+            padding: 11px;
+            color: @color1;
+            background: none;
+          }
+
+          &.active {
+            height: auto;
+
+            &:before {
+              display: none;
+            }
+          }
+
+          &:last-of-type {
+            border: none;
+          }
+        }
+      }
+    }
+
+    h4 {
+      display: inline;
+      padding-top: 3px;
+      color: lighten(@color1, 20);
+    }
+  }
+}
+
+#articles {
+  .Cols(@col1-width);
+  margin: 0 27px;
+
+  article {
+    h3 {
+      font-family: @font1;
+      font-size: 20px;
+
+      a {
+        color: @textColor;
+      }
+    }
+
+    >.img {
+      width: 640px;
+      height: 230px;
+
+      img {
+        height: auto;
+        width: 100%;
+      }
+    }
+
+    .social {
+      width: 100%;
+      height: 40px;
+      border-bottom: @color2Dk 1px solid;
+      border-top: @color2Dk 1px solid;
+
+      >div {
+        float: left;
+        padding: 12px 25px;
+        color: @textColor;
+        font-size: 12px;
+
+        a {
+          color: @textColor;
+        }
+      }
+
+      .date {
+        background: url("../images/icon-clock.jpg") no-repeat 5px center;
+      }
+
+      .author {
+        background: url("../images/icon-foot.jpg") no-repeat 5px center;
+      }
+
+      .buttons {
+        float: right;
+        display: block;
+        padding-top: 8px;
+
+        a {
+          display: inline-block;
+          height: 24px;
+          vertical-align: middle;
+
+          .gray();
+          opacity: .3;
+
+          &:hover {
+            .clearFilter();
+            opacity: 1;
+          }
+        }
+
+        .f {
+          .socialButton(f);
+          width: 49px;
+        }
+        .g {
+          .socialButton(g);
+          width: 41px;
+        }
+        .t {
+          .socialButton(t);
+          width: 49px;
+        }
+        .v {
+          .socialButton(v);
+          width: 49px;
+        }
+        .y {
+          .socialButton(y);
+          width: 41px;
+        }
+      }
+
+    }
+    padding-bottom: 35px;
+  }
+
+  @media (max-width: @default-width) {
+    .center(@col1-width);
+    width: 100%;
+    article {
+      overflow: hidden;
+      position: relative;
+
+      h3, >div {
+        .center(@col1-width);
+      }
+
+      @media (min-width: @tablet-width) {
+        .social {
+          .center(@col1-width);
+          .buttons {
+            position: absolute;
+            right: -2px;
+            width: 50px;
+            top: 0px;
+
+            padding: 0;
+
+            a {
+              margin: 0 0 10px 0;
+              .clearFilter();
+              opacity: 1;
+              float: right;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: @tablet-width) {
+    .center(90%);
+    padding-top: 20px;
+
+    article {
+      position: relative;
+
+      >div, h3 {
+        width: 100%;
+        height: auto;
+        max-width: @col1-width;
+        background: lighten(@color2Dk, 5);
+      }
+
+      h3 {
+        padding: 10px;
+        font-size: 18px;
+        text-align: center;
+      }
+      .social {
+        width: 100%;
+        background: none;
+        border-top: none;
+
+        .buttons {
+          position: absolute;
+          bottom: 0px;
+          width: 100%;
+          text-align: center;
+          padding: 0 0 35px 0;
+
+          a {
+            margin: 0 5px;
+            .clearFilter();
+            opacity: 1;
+          }
+        }
+      }
+
+      .text {
+        background: none;
+      }
+      padding-bottom: 60px;
+    }
+  }
+}
+
+aside {
+  .Cols(@default-width - 3 * @gutter-width - @col1-width);
+  float: right;
+
+  section {
+    display: block;
+    padding-bottom: 15px;
+
+    a.ret {
+      display: block;
+      position: absolute;
+      padding: 5px;
+      bottom: 0;
+      right: 0;
+
+      path {
+        fill: @color2;
+      }
+    }
+  }
+
+  h2 {
+    border-bottom: 4px solid @color1Dk;
+    color: @color1Dk;
+    font-family: @font2;
+    margin: 0;
+
+    span {
+      display: inline-block;
+      width: 31px;
+      text-align: center;
+      margin-right: 5px;
+      color: @color2;
+      background: @color1Dk;
+    }
+  }
+
+  #links {
+    padding-bottom: 30px;
+
+    a {
+      font-size: 12px;
+      color: @color2;
+      padding: 2px 25px 2px 10px;
+      line-height: 25px;
+      background: @color1Dk url("../images/nav_arrow.svg") no-repeat right center;
+
+      &:hover {
+        background-color: lighten(@color1Dk, 20);
+        text-decoration: none;
+      }
+    }
+  }
+
+  @media (max-width: @default-width) {
+    .center(@col1-width);
+    width: 100%;
+
+    section {
+      min-height: 120px;
+
+      @media (min-width: @tablet-width){
+        h2 {
+          border: none;
+          background: fade(lighten(@color1, 20), 30);
+          line-height: 42px;
+          vertical-align: middle;
+          position: absolute;
+          text-align: center;
+          padding: 0 15px;
+          width: 100px;
+
+          span {
+            display: none;
+          }
+        }
+
+        &#about h2 {
+          .transform(rotate(-89.99deg), 20px 20px);
+          top: 228px;
+          left: 2px;
+        }
+
+        &#shit h2 {
+          .transform(rotate(90deg), right top);
+          width: 120px;
+          top: 290px;
+          right: 1px;
+          font-size: 20px;
+        }
+      }
+
+      .text {
+        padding-top: 0;
+        .center(@col1-width);
+      }
+    }
+
+    #links {
+      .center(@col1-width);
+    }
+  }
+
+  @media (max-width: @tablet-width) {
+    width: 100%;
+
+    >* {
+      padding-top: 20px;
+    }
+
+    #links {
+      padding-bottom: 0;
+      width: 90%;
+    }
+
+    section {
+      background: fade(lighten(@color1, 20), 30);
+      position: relative;
+
+      h2 {
+        border: none;
+        position: absolute;
+        text-align: right;
+        padding: 5px;
+        color: @color2;
+        font-size: 15px;
+        bottom: 0;
+        right: 35px;
+
+        span {
+          display: none;
+        }
+      }
+
+      .text {
+        width: 90%;
+        margin: 0 auto;
+      }
+    }
+  }
+}
